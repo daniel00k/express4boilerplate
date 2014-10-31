@@ -1,6 +1,7 @@
-express          =  require('express')
+express          =  require 'express'
 coffee           =  require 'coffee-script'
 fs               =  require 'fs'
+logger           =  require "morgan"
 app              =  express()
 app.set('port', process.env.PORT or 3003)
 
@@ -9,6 +10,7 @@ handlebars = require("express3-handlebars").create(defaultLayout: "main")
 app.engine "handlebars", handlebars.engine
 app.set "view engine", "handlebars"
 
+app.use logger('combined')
 # Serve static files
 app.use express.static(__dirname + '/public')
 
