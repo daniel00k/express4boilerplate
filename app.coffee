@@ -14,19 +14,14 @@ app.use logger('combined')
 # Serve static files
 app.use express.static(__dirname + '/public')
 
-# Serve test files written in coffee
-app.use '/qa', (request, response, next) ->
-  coffeeFile = __dirname + '/qa' + request.path
-  file       = fs.readFile coffeeFile, "utf-8", (err, data) ->
-    return next() if err?
-    response
-      .contentType('text/javascript')
-      .send coffee.compile data
-
-# tests
-app.use (req, res, next) ->
-	res.locals.showTests = app.get('env') isnt 'production' and req.query.test is '1'
-	next()
+# Serve test files written in coffee----not using it for now
+# app.use '/test', (request, response, next) ->
+#   coffeeFile = __dirname + '/test' + request.path
+#   file       = fs.readFile coffeeFile, "utf-8", (err, data) ->
+#     return next() if err?
+#     response
+#       .contentType('text/javascript')
+#       .send coffee.compile data
 
 app.get '/', (req, res)-> 
 	res.render('pages/home')
