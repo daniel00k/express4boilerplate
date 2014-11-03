@@ -2,6 +2,7 @@ express          =  require 'express'
 coffee           =  require 'coffee-script'
 fs               =  require 'fs'
 logger           =  require "morgan"
+fortune          =  require "./lib/fortune.coffee"
 app              =  express()
 app.set('port', process.env.PORT or 3003)
 
@@ -26,11 +27,8 @@ app.use express.static(__dirname + '/public')
 app.get '/', (req, res)-> 
 	res.render('pages/home')
 
-dynamic = ['asdf', 'qwer', 'acaca']
-
 app.get '/about', (req, res)-> 
-	dynamicSample = dynamic[Math.floor(Math.random()*dynamic.length)]
-	res.render('pages/about', { fortune: dynamicSample})
+	res.render('pages/about', { fortune: fortune.getFortune()})
 
 # 404
 app.use (req, res) ->
